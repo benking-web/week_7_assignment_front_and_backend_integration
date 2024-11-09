@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zidimeka Digital Hospital and Consultancy</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #333;
+            color: white;
+            font-size: 1.1em;
+        }
+
+        header {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            padding: 5px;
+            font-size: 0.9em; /* Reduced font size */
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul li {
+            margin: 0 5px;
+            position: relative;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            padding: 5px 10px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #555;
+            min-width: 160px;
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #007bff;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 800px;
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+            margin-top: 10px;
+            flex: 1;
+        }
+
+        .section {
+            margin: 5px 0;
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+            background-color: #444;
+        }
+
+        .button {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px;
+            cursor: pointer;
+            margin: 5px;
+            width: 180px;
+            font-size: 1em;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin: 10px 0;
+        }
+
+        .form-container {
+            display: none;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            background-color: #555;
+        }
+
+        footer {
+            width: 100%;
+            text-align: center;
+            padding: 5px;
+            background-color: #007bff;
+            color: white;
+            margin-top: auto;
+        }
+
+        .contact-details {
+            margin: 10px 0;
+            font-size: 1em;
+        }
+
+        .footer-note {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.9em; /* Reduced footer note size */
+        }
+
+        .footer-note a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+
+        .cancel-button {
+            background-color: #ff4d4d;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-bottom: 10px;
+        }
+
+        .form-row {
+            display: flex;
+            justify-content: space-between;
+            margin: 5px 0;
+        }
+
+        .form-row label {
+            flex: 1;
+            margin-right: 10px;
+        }
+
+        .form-row input {
+            flex: 2;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><a href="#home" style="color: white; text-decoration: none;">Zidimeka Digital Hospital</a></h1>
+        <nav>
+            <ul>
+                <li><a href="#home" onclick="toggleSection('home-section')">Home</a></li>
+                <li><a href="#about" onclick="toggleSection('about-section')">About Us</a></li>
+                <li>
+                    <a href="#schedule" onclick="toggleSection('schedule-section')">Schedule Appointment</a>
+                    <div class="dropdown">
+                        <a href="#" onclick="toggleDropdown('view-doctor-section')">View Doctors &#9662;</a>
+                        <div class="dropdown-content" id="view-doctor-section" style="display: none;">
+                            <a href="#schedule" onclick="toggleForm('appointment-form')">Schedule Appointment</a>
+                            <a href="#">Specialization</a>
+                            <a href="#">Availability</a>
+                            <a href="#">Cancel Appointment</a>
+                            <a href="#">Notification</a>
+                        </div>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" onclick="toggleDropdown('manage-profile-section')">Manage Profile &#9662;</a>
+                    <div class="dropdown-content" id="manage-profile-section" style="display: none;">
+                        <a href="#" onclick="toggleForm('register-user-form')">Register as Users</a>
+                        <a href="#">Patients Profile</a>
+                        <a href="#">Doctors Profile</a>
+                        <a href="#">Admins Profile</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" onclick="toggleDropdown('register-doctor-section')">Register as Doctor &#9662;</a>
+                    <div class="dropdown-content" id="register-doctor-section" style="display: none;">
+                        <a href="#">View Patient Appointments</a>
+                        <a href="#">Doctors on Duty</a>
+                        <a href="#">View Messages</a>
+                    </div>
+                </li>
+                <li>
+                    <a href="#" onclick="toggleDropdown('contacts-section')">Contact Us &#9662;</a>
+                    <div class="dropdown-content" id="contacts-section" style="display: none;">
+                        <a href="#" onclick="showMap()">View Location on Map</a>
+                        <a href="mailto:info@zidimekahospital.com">Email Us</a>
+                        <a href="#" onclick="showContactDetails()">Contact Details</a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="section" id="home-section">
+            <h2>Welcome</h2>
+            <p>Your health is our priority. We provide telemedicine services to connect you with healthcare professionals from the comfort of your home.</p>
+        </div>
+
+        <div class="section" id="about-section" style="display: none;">
+            <h2>About Us</h2>
+            <p>Be Sure And Be Assured.</p>
+            <p>Zidimeka Digital Hospital is an ISO-Certified group of hospitals with over 500 bed strength, fully equipped for multi-specialty procedures including IVF/ICSI Fertility Treatment, Laparoscopy, Knee/Hip Replacement, Laser Cataract and Prostate surgeries, Liver transplant etc.</p>
+            <p>To reverse medical tourism towards Africa through provision of unparalleled world-class health care services.</p>
+        </div>
+
+        <div class="section" id="services">
+            <h2>How May We Help You</h2>
+            <div class="button-container">
+                <button class="button" onclick="toggleForm('register-patient-form')">Register as Patient</button>
+                <button class="button" onclick="toggleForm('register-doctor-form')">Register as Doctor</button>
+            </div>
+            <div class="button-container">
+                <button class="button" onclick="toggleForm('appointment-form')">Schedule Appointment</button>
+                <button class="button" onclick="toggleForm('register-admin-form')">Admin Sign In</button>
+            </div>
+            <div class="button-container">
+                <button class="button" onclick="showTour()">Take a Tour</button>
+                <button class="button" onclick="toggleForm('search-form')">Search Nearby Health Centre</button>
+            </div>
+        </div>
+
+        <!-- Form containers with cancel buttons -->
+        <div class="form-container" id="register-user-form">
+            <button class="cancel-button" onclick="toggleForm('register-user-form')">Cancel</button>
+            <h2>Register as Users</h2>
+            <form id="user-registration-form">
+                <div class="form-row">
+                    <label for="user-first-name">First Name:</label>
+                    <input type="text" id="user-first-name" required>
+                </div>
+                <div class="form-row">
+                    <label for="user-last-name">Last Name:</label>
+                    <input type="text" id="user-last-name" required>
+                </div>
+                <div class="form-row">
+                    <label for="user-phone">Phone Number:</label>
+                    <input type="tel" id="user-phone" required>
+                </div>
+                <div class="form-row">
+                    <label for="user-email">Email:</label>
+                    <input type="email" id="user-email" required>
+                </div>
+                <div class="form-row">
+                    <label for="user-password">Password:</label>
+                    <input type="password" id="user-password" required>
+                </div>
+                <div class="form-row">
+                    <label for="user-address">Address:</label>
+                    <input type="text" id="user-address" required>
+                </div>
+                <button type="submit">Register</button>
+                <div class="feedback" id="user-registration-feedback"></div>
+                <div class="error" id="user-registration-error"></div>
+            </form>
+        </div>
+
+        <div class="form-container" id="register-patient-form">
+            <button class="cancel-button" onclick="toggleForm('register-patient-form')">Cancel</button>
+            <h2>Patient Registration</h2>
+            <form id="patient-registration-form">
+                <div class="form-row">
+                    <label for="patient-first-name">First Name:</label>
+                    <input type="text" id="patient-first-name" required>
+                </div>
+                <div class="form-row">
+                    <label for="patient-last-name">Last Name:</label>
+                    <input type="text" id="patient-last-name" required>
+                </div>
+                <div class="form-row">
+                    <label for="patient-phone">Phone Number:</label>
+                    <input type="tel" id="patient-phone" required>
+                </div>
+                <div class="form-row">
+                    <label for="patient-email">Email:</label>
+                    <input type="email" id="patient-email" required>
+                </div>
+                <div class="form-row">
+                    <label for="patient-address">Address:</label>
+                    <input type="text" id="patient-address" required>
+                </div>
+                <button type="submit">Register</button>
+                <div class="feedback" id="patient-registration-feedback"></div>
+                <div class="error" id="patient-registration-error"></div>
+            </form>
+        </div>
+
+        <div class="form-container" id="register-doctor-form">
+            <button class="cancel-button" onclick="toggleForm('register-doctor-form')">Cancel</button>
+            <h2>Doctor Registration</h2>
+            <form id="doctor-registration-form">
+                <div class="form-row">
+                    <label for="doc-first-name">First Name:</label>
+                    <input type="text" id="doc-first-name" required>
+                </div>
+                <div class="form-row">
+                    <label for="doc-last-name">Last Name:</label>
+                    <input type="text" id="doc-last-name" required>
+                </div>
+                <div class="form-row">
+                    <label for="doc-phone">Phone Number:</label>
+                    <input type="tel" id="doc-phone" required>
+                </div>
+                <div class="form-row">
+                    <label for="doc-email">Email:</label>
+                    <input type="email" id="doc-email" required>
+                </div>
+                <div class="form-row">
+                    <label for="doc-specialization">Specialization:</label>
+                    <input type="text" id="doc-specialization" required>
+                </div>
+                <button type="submit">Register</button>
+                <div class="feedback" id="doctor-registration-feedback"></div>
+                <div class="error" id="doctor-registration-error"></div>
+            </form>
+        </div>
+
+        <div class="form-container" id="appointment-form">
+            <button class="cancel-button" onclick="toggleForm('appointment-form')">Cancel</button>
+            <h2>Schedule Appointment</h2>
+            <form id="appointment-scheduling-form">
+                <div class="form-row">
+                    <label for="appointment-date">Appointment Date:</label>
+                    <input type="date" id="appointment-date" required>
+                </div>
+                <div class="form-row">
+                    <label for="appointment-time">Appointment Time:</label>
+                    <input type="time" id="appointment-time" required>
+                </div>
+                <div class="form-row">
+                    <label for="doctor-name">Doctor Name:</label>
+                    <input type="text" id="doctor-name" required>
+                </div>
+                <button type="submit">Schedule</button>
+                <div class="feedback" id="appointment-feedback"></div>
+                <div class="error" id="appointment-error"></div>
+            </form>
+        </div>
+
+        <div class="form-container" id="register-admin-form">
+            <button class="cancel-button" onclick="toggleForm('register-admin-form')">Cancel</button>
+            <h2>Admin Sign In</h2>
+            <form id="admin-sign-in-form">
+                <div class="form-row">
+                    <label for="admin-username">Username:</label>
+                    <input type="text" id="admin-username" required>
+                </div>
+                <div class="form-row">
+                    <label for="admin-password">Password:</label>
+                    <input type="password" id="admin-password" required>
+                </div>
+                <button type="submit">Sign In</button>
+                <div class="feedback" id="admin-sign-in-feedback"></div>
+                <div class="error" id="admin-sign-in-error"></div>
+            </form>
+        </div>
+
+        <div class="form-container" id="search-form">
+            <button class="cancel-button" onclick="toggleForm('search-form')">Cancel</button>
+            <h2>Search Nearby Health Centre</h2>
+            <form id="search-health-centre-form">
+                <div class="form-row">
+                    <label for="search-location">Location:</label>
+                    <input type="text" id="search-location" required>
+                </div>
+                <button type="submit">Search</button>
+                <div class="feedback" id="search-feedback"></div>
+                <div class="error" id="search-error"></div>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Zidimeka Digital Hospital. All rights reserved.</p>
+    </footer>
+
+    <div class="footer-note">
+        <p>For inquiries, contact us: No: 2 Victory Estate beside Sumi Hotels Obiri-ikwerre bridge Ozuoba Portharcourt Nigeria. Phone: +2348036028202, +2348029814932</p>
+        <p>Follow us on social media: <a href="#">Facebook</a> | <a href="#">Twitter</a> | <a href="#">Instagram</a></p>
+    </div>
+
+    <script>
+        function toggleSection(sectionId) {
+            const section = document.getElementById(sectionId);
+            section.style.display = (section.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function showDashboard() {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.style.display = 'block'; // Show all sections
+            });
+
+            const forms = document.querySelectorAll('.form-container');
+            forms.forEach(form => {
+                form.style.display = 'none'; // Hide all forms
+            });
+        }
+
+        function toggleForm(formId) {
+            const form = document.getElementById(formId);
+            if (form.style.display === 'block') {
+                form.style.display = 'none'; // Hide form if it's already visible
+            } else {
+                hideAllForms(); // Hide other forms before showing the selected one
+                form.style.display = 'block'; // Show the selected form
+            }
+        }
+
+        function hideAllForms() {
+            const forms = document.querySelectorAll('.form-container');
+            forms.forEach(form => {
+                form.style.display = 'none'; // Hide all forms
+            });
+        }
+
+        function toggleDropdown(dropdownId) {
+            const dropdown = document.getElementById(dropdownId);
+            dropdown.style.display = (dropdown.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function showMap() {
+            const mapUrl = "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d317155.6535541465!2d7.024407101441585!3d4.80651602143942!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103b99a832e9e8f%3A0xd1b913a7f4b52961!2sOzuoba%2C%20Port%20Harcourt%2C%20Nigeria!5e0!3m2!1sen!2sus!4v1695016375012!5m2!1sen!2sus";
+            window.open(mapUrl, "_blank");
+        }
+
+        function showContactDetails() {
+            alert("Contact Details:\nPhone: +2348036028202, +2348029814932\nEmail: info@zidimekahospital.com");
+        }
+
+        // Show/hide dropdown on clicking "View Doctors", "Manage Profile", and "Contact Us"
+        document.querySelectorAll('.dropdown > a').forEach(anchor => {
+            anchor.onclick = function(event) {
+                event.preventDefault(); // Prevent default link behavior
+                const dropdownId = anchor.nextElementSibling.id;
+                toggleDropdown(dropdownId);
+            };
+        });
+    </script>
+</body>
+</html>
